@@ -7,7 +7,7 @@ var cityList = ["New York", "San Francisco", "Seattle"];
 function renderList(){
     for (var i = 0; i < cityList.length; i++){
         var cityName = cityList[i];
-        var cityButton = $(`<button type="button" class="btn btn-light btn-lg btn-block city" data-name="${cityName}">${cityName}</button>`);
+        var cityButton = $(`<li class="list-group-item" data-name="${cityName}">${cityName}</li>`);
         $("#city-list").append(cityButton);
     }
 }
@@ -28,14 +28,12 @@ function renderSearchResult (){
         var dateUnix = response.dt;
         var dateObject = new Date(dateUnix * 1000);
         var dateFormat = dateObject.toLocaleDateString();
-        console.log(dateFormat);
         var temp = Math.floor(response.main.temp);
         var humidity = response.main.humidity;
         var windSpeed = response.wind.speed;
         // Add condition icon and date
         var cityEl = `<p>${cityName}</p>`;
         var conditionEl = `<img src="http://openweathermap.org/img/wn/${condition}@2x.png">`;
-        console.log(conditionEl);
         var tempEl = `<p>Temperature: ${temp} °F</p>`;
         var humidityEl = `<p>Humidity: ${humidity} %</p>`;
         var windSpeedEl = `<p>Wind Speed: ${windSpeed} MPH</p>`;
@@ -52,6 +50,10 @@ function renderSearchResult (){
         method: "GET"
     }).then(function(response){
         console.log(response);
+        var uvIndex = response.value;
+        console.log(uvIndex);
+        var uvEl = $(`<p>UV Index: ${uvIndex}</p>`)
+        $("#current-weather").append(uvEl);
     })
 
 

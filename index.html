@@ -15,33 +15,45 @@
         <span class="navbar-brand mb-0 h1 mx-auto">Weather Dashboard</span>
     </nav>
     <div class="container mt-5">
-        <div class="row">
-          <div class="col-4">
-            <!-- Search bar for user's city input -->
-            <form class="form-group">
-                <label for="search-bar">Search for a City:</label>
-                <div class="row">
-                    <div class="col-lg">
-                        <input class="form-control" id="search-bar" type="search" placeholder="City Name">
-                    </div>
-                    <div class="col-lg">
-                        <button class="btn btn-primary" id="submit-button" type="submit"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-            </form>
-            <ul id="city-list">
-                <!-- Empty list for dynamically created city list items -->
+      <div class="row">
+        <!-- Column for search bar and previous search list -->
+        <div class="col-lg-4">
+          <form class="form-group m-3">
+              <label for="search-bar">Search for a City:</label>
+              <div class="row">
+                  <div class="col-lg">
+                      <input class="form-control" id="search-bar" type="search" placeholder="City Name">
+                  </div>
+                  <div class="col-lg">
+                      <button class="btn btn-primary" id="submit-button" type="submit"><i class="fas fa-search"></i></button>
+                  </div>
+              </div>
+          </form>
+          <div class="card m-3" style="width: 18rem;">
+            <ul class="list-group list-group-flush" id="city-list">
+              <!-- Empty list for dynamically created city list items -->
             </ul>
           </div>
-          <div class="col-8">
-            <div class ="row">
-              <div class="col" id="current-weather"></div>
+        </div>
+        
+        <div class="col-lg-8">
+          <div class ="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-body" id="current-weather"></div>
+              </div>
             </div>
-            <div class ="row">
-              <div class="col" id="forecast"></div>
+          </div>
+          <br>
+          <div class ="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-body" id="forecast">Future forecast here</div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
 
     <!-- Scripts -->
