@@ -112,7 +112,13 @@ function returnUV (){
         console.log(response);
         var uvIndex = response.value;
         console.log("UV: " + uvIndex);
-        var uvEl = $(`<p>UV Index: ${uvIndex}</p>`)
+        if (uvIndex <= 3){
+            var uvEl = $(`<p>UV Index: <span class="bg-success">${uvIndex}</span></p>`)
+        } else if (uvIndex > 3 && uvIndex <=8){
+            var uvEl = $(`<p>UV Index: <span class="bg-warning">${uvIndex}</span></p>`)
+        } else {
+            var uvEl = $(`<p>UV Index: <span class="bg-danger">${uvIndex}</span></p>`)
+        }
         $("#current-weather").append(uvEl);
     })
 }
