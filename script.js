@@ -5,7 +5,8 @@ function renderCities() {
     $("#city-list").empty();
     for (var i = 0; i < cityList.length; i++) {
         var cityName = cityList[i];
-        var cityButton = $(`<li class="list-group-item" data-name="${cityName}">${cityName}</li>`);
+        var cityButton = $(`<li class="list-group-item">${cityName}</li>`);
+        cityButton.data("city", cityName);
         $("#city-list").append(cityButton);
     }
 }
@@ -21,11 +22,9 @@ function appendCity() {
 appendCity();
 
 // Search for a new city, display current and future conditions, and add to search history
-function renderSearchResult() {
+var renderSearchResult = function(city) {
     // event.preventDefault();
-    var cityInput = "Austin";
-    console.log(cityInput);
-    var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=imperial&appid=b45e06127671f741ee914cedb135bb5d`;
+    var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=b45e06127671f741ee914cedb135bb5d`;
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -58,7 +57,14 @@ function renderSearchResult() {
                 console.log(response);
                 var uvIndex = response.value;
                 console.log(uvIndex);
-                var uvEl = $(`<p>UV Index: ${uvIndex}</p>`)
+                $("#uvEl").text(`UV Index: ${uvIndex}`)
+                if (uvIndex <= 3){
+                    $("#uvEl").html(`UV Index: <span class="bg-success">${uvIndex}</span>`);
+                } else if (uvIndex > 3 && uvIndex <=8){
+                    $("#uvEl").html(`UV Index: <span class="bg-warning">${uvIndex}</span>`);
+                } else {
+                    $("#uvEl").html(`UV Index: <span class="bg-danger">${uvIndex}</span>`);
+                }
                 $("#current-weather").append(uvEl);
             })
         }
@@ -98,7 +104,6 @@ function renderSearchResult() {
     })
     // $.when(returnConditions()).then(returnUV);
 }
-renderSearchResult();
 
 // Display UV Index
 // var lat = 30.27;
@@ -159,6 +164,16 @@ renderSearchResult();
 // }
 // renderForecast();
 
-// $("#submit-button").on("click", renderSearchResult);
-// $("#city-list").on("click", renderSearchResult);
-// $("#city-list").on("click", appendCity);
+$("#submit-button").on("click", function(event) {
+    event.preventDefault();
+    var city = $("#search-bar").val();
+    if (city === "") {
+        return;
+    }
+    renderSearchResult(city);
+});
+$("#city-list").on("click", "li", function(event) {
+    event.preventDefault();
+    var city = $(event.target).data("city");
+    renderSearchResult(city);
+});
