@@ -1,6 +1,3 @@
-// Retrieve and display current day weather
-// let cityInput = "New York";
-// let queryURL = 
 
 // Render city search history
 var cityList = ["New York", "San Francisco", "Seattle"];
@@ -16,8 +13,9 @@ renderCities();
 
 // Search for a new city, display current and future conditions, and add to search history
 function renderSearchResult (){
-    // var cityInput = $("#search-bar").val();
+    // event.preventDefault();
     var cityInput = "Austin";
+    console.log(cityInput);
     var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=imperial&appid=b45e06127671f741ee914cedb135bb5d`;
     // var lat = "";
     // var lon = "";
@@ -25,7 +23,7 @@ function renderSearchResult (){
         url: queryURL,
         method: "GET"
     }).then(function(response){
-        console.log("AJAX:" + response);
+        console.log(response);
         var cityName = response.name;
         var condition = response.weather[0].icon;
         var dateUnix = response.dt;
@@ -42,14 +40,65 @@ function renderSearchResult (){
         var humidityEl = `<p>Humidity: ${humidity} %</p>`;
         var windSpeedEl = `<p>Wind Speed: ${windSpeed} MPH</p>`;
         $("#current-weather").append(cityEl, dateFormat, conditionEl, tempEl, humidityEl, windSpeedEl);
+
+        // var coordURL = `http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=b45e06127671f741ee914cedb135bb5d`;
+        // console.log(coordURL);
+        // function returnUV (){
+        // $.ajax({
+        //     url: coordURL,
+        //     method: "GET"
+        // }).then(function(response){
+        //     console.log(response);
+        //     var uvIndex = response.value;
+        //     console.log(uvIndex);
+        //     var uvEl = $(`<p>UV Index: ${uvIndex}</p>`)
+        //     $("#current-weather").append(uvEl);
+        // })
+        // }
+        // returnUV();
+
+        // function renderForecast(){
+        //     var forecastURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude={part}&appid=b45e06127671f741ee914cedb135bb5d`;
+        //     $.ajax({
+        //         url: forecastURL,
+        //         method: "GET"
+        //     }).then(function(response){
+        //         console.log("forecast:" +response)
+        //         // current visibility can be pulled from here
+        //         for (var i = 1; i < 6; i++){
+        //             var cardCol = $(`<div class="col-lg-2">`)
+        //             var newCard = $(`<div class="card bg-primary text-white" style="width: 10rem;">`)
+        //             var cardBody = $(`<div class="card-body">`)
+        //             var fDate = response.daily[i].dt;
+        //             var fdateObject = new Date(fDate * 1000);
+        //             var fdateFormat = fdateObject.toLocaleDateString();
+        //             var fCondition = response.daily[i].weather[0].icon;
+        //             var fTemp = Math.floor(response.daily[i].temp.day);
+        //             var fHumidity = response.daily[i].humidity;
+        //             var fDateEl = $(`<p>${fdateFormat}</p>`);
+        //             var fConditionEl = $(`<img class="h-50 w-50" src="http://openweathermap.org/img/wn/${fCondition}@2x.png">`);
+        //             var fTempEl = $(`<p>Temp: ${fTemp} °F</p>`);
+        //             var fHumidityEl = $(`<p>Humidity: ${fHumidity} %</p>`);
+        //             cardBody.append(fDateEl, fConditionEl, fTempEl, fHumidityEl);
+        //             newCard.append(cardBody);
+        //             cardCol.append(newCard);
+        //             $("#forecast").append(cardCol);
+        //         }
+        
+        //     })
+        // }
+        // renderForecast();
     })
-
     // $.when(returnConditions()).then(returnUV);
-
-    // Render list to update list for new city
-    renderCities();
 }
 renderSearchResult();
+
+function appendCity() {
+    var CitName = $(this).val();
+    console.log(CitName);
+    cityList.append(CitName);
+    renderCities();
+}
 
 // Display UV Index
 var lat = 30.27;
@@ -62,7 +111,7 @@ function returnUV (){
     }).then(function(response){
         console.log(response);
         var uvIndex = response.value;
-        console.log(uvIndex);
+        console.log("UV: " + uvIndex);
         var uvEl = $(`<p>UV Index: ${uvIndex}</p>`)
         $("#current-weather").append(uvEl);
     })
@@ -80,7 +129,8 @@ function renderForecast(){
         console.log(response)
         // current visibility can be pulled from here
         for (var i = 1; i < 6; i++){
-            var newCard = $(`<div class="card" style="width: 18rem;">`)
+            var cardCol = $(`<div class="col-lg-2">`)
+            var newCard = $(`<div class="card bg-primary text-white" style="width: 10rem;">`)
             var cardBody = $(`<div class="card-body">`)
             var fDate = response.daily[i].dt;
             var fdateObject = new Date(fDate * 1000);
@@ -89,16 +139,19 @@ function renderForecast(){
             var fTemp = Math.floor(response.daily[i].temp.day);
             var fHumidity = response.daily[i].humidity;
             var fDateEl = $(`<p>${fdateFormat}</p>`);
-            var fConditionEl = $(`<img src="http://openweathermap.org/img/wn/${fCondition}@2x.png">`);
-            var fTempEl = $(`<p>Temperature: ${fTemp} °F</p>`);
+            var fConditionEl = $(`<img class="h-50 w-50" src="http://openweathermap.org/img/wn/${fCondition}@2x.png">`);
+            var fTempEl = $(`<p>Temp: ${fTemp} °F</p>`);
             var fHumidityEl = $(`<p>Humidity: ${fHumidity} %</p>`);
             cardBody.append(fDateEl, fConditionEl, fTempEl, fHumidityEl);
             newCard.append(cardBody);
-            $("#forecast").append(newCard);
+            cardCol.append(newCard);
+            $("#forecast").append(cardCol);
         }
 
     })
 }
 renderForecast();
 
-// $("#submit-button").on("click", renderSearchResult)
+// $("#submit-button").on("click", renderSearchResult);
+// $("#city-list").on("click", renderSearchResult);
+// $("#city-list").on("click", appendCity);

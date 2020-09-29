@@ -14,7 +14,7 @@
     <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1 mx-auto">Weather Dashboard</span>
     </nav>
-    <div class="container mt-5">
+    <div class="container-fluid mt-5">
       <div class="row">
         <!-- Column for search bar and previous search list -->
         <div class="col-lg-4">
@@ -35,7 +35,7 @@
             </ul>
           </div>
         </div>
-        
+        <!-- Column for current and future forecast -->
         <div class="col-lg-8">
           <div class ="row">
             <div class="col">
@@ -44,13 +44,7 @@
               </div>
             </div>
           </div>
-          <br>
-          <div class ="row">
-            <div class="col">
-              <div id="forecast">
-                <!-- Empty div where daily forecast cards will be appended -->
-              </div>
-            </div>
+          <div class ="row mt-4" id="forecast">
           </div>
         </div>
       </div>
