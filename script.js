@@ -41,12 +41,12 @@ function renderSearchResult() {
         var windSpeed = response.wind.speed;
         var lat = response.coord.lat;
         var lon = response.coord.lon;
-        var cityEl = `<p>${cityName}</p>`;
-        var conditionEl = `<img src="http://openweathermap.org/img/wn/${condition}@2x.png">`;
-        var tempEl = `<p>Temperature: ${temp} °F</p>`;
-        var humidityEl = `<p>Humidity: ${humidity} %</p>`;
-        var windSpeedEl = `<p>Wind Speed: ${windSpeed} MPH</p>`;
-        $("#current-weather").append(cityEl, dateFormat, conditionEl, tempEl, humidityEl, windSpeedEl);
+        $("#cityEl").text(cityName);
+        $("#dateEl").text(dateFormat);
+        $("#conditionEl").attr("src", `http://openweathermap.org/img/wn/${condition}@2x.png`);
+        $("#tempEl").text(`Temperature: ${temp} °F`);
+        $("#humidityEl").text(`Humidity: ${humidity} %`);
+        $("#windSpeedEl").text(`Wind Speed: ${windSpeed} MPH`);
 
         var coordURL = `http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=b45e06127671f741ee914cedb135bb5d`;
         console.log(coordURL);
