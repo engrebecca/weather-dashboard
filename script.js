@@ -52,13 +52,12 @@ var renderSearchResult = function(city) {
         $("#windSpeedEl").text(`Wind Speed: ${windSpeed} MPH`);
 
         // Display UV index for city search input
-        var coordURL = `http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=b45e06127671f741ee914cedb135bb5d`;
+        var coordURL = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=b45e06127671f741ee914cedb135bb5d`;
         $.ajax({
             url: coordURL,
             method: "GET"
         }).then(function (response) {
             var uvIndex = response.value;
-            // $("#uvEl").text(`UV Index: ${uvIndex}`)
             if (uvIndex <= 3){
                 $("#uvEl").html(`UV Index: <span class="bg-success">${uvIndex}</span>`);
             } else if (uvIndex > 3 && uvIndex <=8){
