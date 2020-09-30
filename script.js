@@ -34,7 +34,6 @@ var renderSearchResult = function(city) {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        console.log(response);
         var cityName = response.name;
         var condition = response.weather[0].icon;
         var dateUnix = response.dt;
@@ -54,14 +53,11 @@ var renderSearchResult = function(city) {
 
         // Display UV index for city search input
         var coordURL = `http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=b45e06127671f741ee914cedb135bb5d`;
-        console.log(coordURL);
         $.ajax({
             url: coordURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
             var uvIndex = response.value;
-            console.log(uvIndex);
             $("#uvEl").text(`UV Index: ${uvIndex}`)
             if (uvIndex <= 3){
                 $("#uvEl").html(`UV Index: <span class="bg-success">${uvIndex}</span>`);
@@ -79,11 +75,10 @@ var renderSearchResult = function(city) {
             url: forecastURL,
             method: "GET"
         }).then(function (response) {
-            console.log("forecast:" + response)
             $("#forecast").empty();
             for (var i = 1; i < 6; i++) {
                 var cardCol = $(`<div class="col-lg-2">`)
-                var newCard = $(`<div class="card bg-primary text-white" style="width: 10rem; fcstCard">`)
+                var newCard = $(`<div class="card bg-primary text-white" style="width: 10rem;">`)
                 var cardBody = $(`<div class="card-body">`)
                 var fDate = response.daily[i].dt;
                 var fdateObject = new Date(fDate * 1000);
