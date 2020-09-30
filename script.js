@@ -2,13 +2,11 @@
 // Render city search history
 var initialList = JSON.parse(localStorage.getItem("city list"))
 if (initialList === null){
-    var cityList = ["New York", "Melbourne", "Oslo"];
+    var cityList = ["New York", "Hong Kong", "Oslo"];
     localStorage.setItem("city list", JSON.stringify(cityList));
 } else{
     cityList = initialList;
 }
-// var cityList = ["New York", "Melbourne", "Oslo"];
-// localStorage.setItem("city list", JSON.stringify(cityList));
 
 function renderCities() {
     $("#city-list").empty();
@@ -28,7 +26,6 @@ function appendCity(city) {
     localStorage.setItem("city list", JSON.stringify(cityList));
     renderCities();
 }
-
 
 var renderSearchResult = function(city) {
     // Search for a new city, display current and future conditions, and add to search history
@@ -86,7 +83,7 @@ var renderSearchResult = function(city) {
             $("#forecast").empty();
             for (var i = 1; i < 6; i++) {
                 var cardCol = $(`<div class="col-lg-2">`)
-                var newCard = $(`<div class="card bg-primary text-white" style="width: 10rem;">`)
+                var newCard = $(`<div class="card bg-primary text-white" style="width: 10rem; fcstCard">`)
                 var cardBody = $(`<div class="card-body">`)
                 var fDate = response.daily[i].dt;
                 var fdateObject = new Date(fDate * 1000);
@@ -123,3 +120,5 @@ $("#city-list").on("click", "li", function(event) {
     var city = $(this).data("city");
     renderSearchResult(city);
 });
+
+renderSearchResult("New York");
