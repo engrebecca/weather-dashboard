@@ -58,7 +58,7 @@ var renderSearchResult = function(city) {
             method: "GET"
         }).then(function (response) {
             var uvIndex = response.value;
-            $("#uvEl").text(`UV Index: ${uvIndex}`)
+            // $("#uvEl").text(`UV Index: ${uvIndex}`)
             if (uvIndex <= 3){
                 $("#uvEl").html(`UV Index: <span class="bg-success">${uvIndex}</span>`);
             } else if (uvIndex > 3 && uvIndex <=8){

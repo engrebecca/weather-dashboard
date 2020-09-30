@@ -36,7 +36,6 @@ The below code demonstrates how an AJAX call is used to retrieve data from the O
         method: "GET"
     }).then(function (response) {
         var uvIndex = response.value;
-        $("#uvEl").text(`UV Index: ${uvIndex}`)
         if (uvIndex <= 3){
             $("#uvEl").html(`UV Index: <span class="bg-success">${uvIndex}</span>`);
         } else if (uvIndex > 3 && uvIndex <=8){
