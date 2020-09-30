@@ -46,7 +46,7 @@ var renderSearchResult = function(city) {
         var lon = response.coord.lon;
         $("#cityEl").text(cityName);
         $("#dateEl").text(dateFormat);
-        $("#conditionEl").attr("src", `http://openweathermap.org/img/wn/${condition}@2x.png`);
+        $("#conditionEl").attr("src", `https://openweathermap.org/img/wn/${condition}@2x.png`);
         $("#tempEl").text(`Temperature: ${temp} °F`);
         $("#humidityEl").text(`Humidity: ${humidity} %`);
         $("#windSpeedEl").text(`Wind Speed: ${windSpeed} MPH`);
@@ -86,7 +86,7 @@ var renderSearchResult = function(city) {
                 var fTemp = Math.floor(response.daily[i].temp.day);
                 var fHumidity = response.daily[i].humidity;
                 var fDateEl = $(`<p>${fdateFormat}</p>`);
-                var fConditionEl = $(`<img class="h-50 w-50" src="http://openweathermap.org/img/wn/${fCondition}@2x.png">`);
+                var fConditionEl = $(`<img class="h-50 w-50" src="https://openweathermap.org/img/wn/${fCondition}@2x.png">`);
                 var fTempEl = $(`<p>Temp: ${fTemp} °F</p>`);
                 var fHumidityEl = $(`<p>Humidity: ${fHumidity} %</p>`);
                 cardBody.append(fDateEl, fConditionEl, fTempEl, fHumidityEl);
